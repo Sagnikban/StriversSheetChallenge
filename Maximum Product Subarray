@@ -1,0 +1,16 @@
+#include <bits/stdc++.h> 
+int maximumProduct(vector<int> &arr, int n)
+{
+   int minval=arr[0];
+   int maxval=arr[0];
+   int maxprod=arr[0];
+   for(int i=1;i<arr.size();i++)
+   {
+	   if(arr[i]<0)
+	   swap(maxval,minval);
+	   maxval=max(arr[i],maxval*arr[i]);
+	   minval=min(arr[i],minval*arr[i]);
+	   maxprod=max(maxprod,maxval);
+   }
+   return maxprod;
+}
