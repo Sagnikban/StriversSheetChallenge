@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+void recurse(int i,int sum,vector<int>&num,vector<int>&v)
+{
+   if(i==num.size())
+   {
+       v.push_back(sum);
+       return;
+   }
+
+   sum+=num[i];
+   recurse(i+1,sum,num,v);
+   sum-=num[i];
+   recurse(i+1,sum,num,v);
+
+}
+vector<int> subsetSum(vector<int> &num)
+{
+    vector<int>v;
+    recurse(0,0,num,v);
+    sort(v.begin(),v.end());
+    return v; 
+}
