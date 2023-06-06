@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+
+int findDuplicate(vector<int> &arr, int n){
+	
+	map<int,int>m;
+	for(auto it:arr)
+	m[it]++;
+	for(auto it:m)
+	{
+		if(it.second>=2)
+		return it.first;
+	}
+	return -1;
+}
