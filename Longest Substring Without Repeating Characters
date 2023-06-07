@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string s)
+{
+   map<char,int>m;
+   int i=0,j=0;
+   int n=s.size();
+   int ans=-1;
+   while(j<n)
+   {
+
+       while(m.find(s[j])!=m.end())
+       {
+          m[s[i]]--;
+          if(m[s[i]]==0)
+          m.erase(s[i]);
+          i++;
+       }
+       m[s[j]]++;
+      
+     
+       ans=max(ans,j-i+1);
+       j++;
+   }
+
+   return ans;
+}
