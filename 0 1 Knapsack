@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+int dp[1005][1005];
+int recurse(vector<int> &values, vector<int> &weights,int i,int w)
+{
+	if(i<0)
+	return 0;
+	
+	if(dp[i][w]!=-1)
+	return dp[i][w];
+
+	if(weights[i]<=w)
+	return dp[i][w]=max(values[i]+recurse(values,weights,i-1,w-weights[i]),
+	recurse(values,weights,i-1,w));
+
+	return dp[i][w]=recurse(values,weights,i-1,w);
+}
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	memset(dp,-1,sizeof(dp));
+
+	return recurse(values,weights,weights.size()-1,w);
+}
