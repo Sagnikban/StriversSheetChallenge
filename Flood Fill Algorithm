@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+bool vis[55][55];
+void dfs(int i,int j,vector<vector<int>> &image,int oldColor,int newColor)
+{
+   if(i<0 || j<0 ||i>=image.size() ||j>=image[0].size() || vis[i][j])
+   return;
+   
+   if(image[i][j]==oldColor)
+   {
+   image[i][j]=newColor;
+
+   vis[i][j]=true;
+   
+   
+   dfs(i+1,j,image,oldColor,newColor);
+   
+   dfs(i,j+1,image,oldColor,newColor);
+
+   dfs(i-1,j,image,oldColor,newColor);
+  
+   dfs(i,j-1,image,oldColor,newColor);
+   }
+}
+vector<vector<int>> floodFill(vector<vector<int>> &image, int x, int y, int newColor)
+{
+   int rc=image[x][y];
+   memset(vis,false,sizeof(vis));
+   dfs(x,y,image,rc,newColor);
+   return image;
+}
