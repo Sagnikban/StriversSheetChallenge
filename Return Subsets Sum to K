@@ -1,0 +1,25 @@
+vector<vector<int>>ans;
+void recurse(int i,vector<int>&arr,int n,int k,vector<int>&v)
+{   
+   
+    if(i==n)
+    {
+        if(k==0)
+        ans.push_back(v);
+         
+        return;
+    }
+
+    v.push_back(arr[i]);
+    recurse(i+1,arr,n,k-arr[i],v);
+    v.pop_back();
+    
+
+    recurse(i+1,arr,n,k,v);
+}
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    vector<int>v;
+    recurse(0,arr,n,k,v);
+    return ans;
+}
