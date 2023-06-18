@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+long dp[106][2005];
+long recurse(int i,int *denominations, int n, int value)
+{  
+    if(value==0)
+    return 1;
+
+    if(i==n)
+    {
+      return 0;
+    }
+
+    if(dp[i][value]!=-1)
+    return dp[i][value];
+
+    long choice1=0;
+    if(denominations[i]<=value)
+    {
+       choice1=recurse(i,denominations,n,value-denominations[i]);
+    }
+     
+    long choice2=recurse(i+1,denominations,n,value);
+
+    return dp[i][value]=choice1+choice2;
+
+
+}
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+   memset(dp,-1,sizeof(dp)); 
+   return recurse(0,denominations,n,value);
+}
