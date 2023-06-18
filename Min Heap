@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    vector<int>ans;
+    map<int,int>m;
+    for(int i=0;i<n;i++)
+    {
+        if(q[i][0]==0)
+        {
+           m[q[i][1]]++;
+        
+        }
+        else
+        {
+           int r,c=0; 
+           for(auto it:m)
+           {
+               c++;
+               r=it.first;
+
+               if(c==1)
+               break;
+           } 
+           ans.push_back(r);
+           m[r]--;
+           if(m[r]==0)
+           m.erase(r);
+           
+        }
+    }
+    return ans;
+}
