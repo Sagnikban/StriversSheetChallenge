@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+int dp[1005][1005];
+bool recurse(int i,int n,int k,vector<int>&arr)
+{
+    
+    if(k==0)
+    return true;
+    if(i>=n)
+    { 
+        return false;
+    }
+
+    if(dp[i][k]!=-1)
+    return dp[i][k];
+     
+    bool choice1,choice2;
+    
+    if(arr[i]>k)
+    choice1=false;
+    else
+    choice1=recurse(i+1,n,k-arr[i],arr);
+
+    choice2=recurse(i+1,n,k,arr);
+
+    return dp[i][k]=choice1||choice2;
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) 
+{
+    memset(dp,-1,sizeof(dp));
+    return recurse(0,n,k,arr);
+}
