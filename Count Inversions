@@ -1,0 +1,54 @@
+#include <bits/stdc++.h> 
+long long merge(long long *array,long long s,long long e)
+{
+    int i = s;
+	int m = (s+e)/2;
+	int j = m + 1;
+
+	vector<long long> temp;
+
+	long long cnt = 0;
+
+	while(i<=m and j<=e){
+		if(array[i] < array[j]){
+			temp.push_back(array[i]);
+			i++;
+		}
+		else{
+			cnt += (m - i + 1);
+			temp.push_back(array[j]);
+			j++;
+		}
+	}
+
+	while(i<=m){
+		temp.push_back(array[i++]);
+	}
+
+	while(j<=e){
+		temp.push_back(array[j++]);
+	}
+
+	int k = 0 ;
+	for(int idx = s; idx <=e ;idx++){
+		array[idx] = temp[k++];
+	}
+	return cnt;
+    
+}
+long long inversion_count(long long *arr,int s,int e)
+{
+   if(s>=e){
+		return 0;
+	}
+	//rec case
+	int mid = (s+e)/2;
+	int C1 = inversion_count(arr,s,mid);
+	int C2 = inversion_count(arr,mid+1,e);
+	int CI =  merge(arr,s,e);
+	return C1 + C2 + CI;
+}
+
+long long getInversions(long long *arr, int n){
+    return inversion_count(arr,0,n-1);
+}
