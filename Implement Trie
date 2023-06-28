@@ -1,0 +1,55 @@
+/*
+    Your Trie object will be instantiated and called as such:
+    Trie* obj = new Trie();
+    obj->insert(word);
+    bool check2 = obj->search(word);
+    bool check3 = obj->startsWith(prefix);
+ */
+
+class Trie {
+private:
+    typedef struct Node {
+        Node** children;
+        bool complete;
+        Node() {
+            children = (Node**)calloc(26, sizeof(Node*));
+            complete = false;
+        }
+    } Node;
+    
+    Node* root_;
+    
+    Node* getNode_(const string str) {
+        Node* ptr = root_;
+        for(const char c: str) {
+            ptr = ptr->children[c - 'a'];
+            if(ptr == NULL) break;
+        }
+        return ptr;
+    }
+    
+public:
+    Trie() {
+        root_ = new Node();
+    }
+    
+    void insert(string word) {
+        Node* ptr = root_;
+        for(const char c: word) {
+            if(ptr->children[c - 'a'] == NULL)
+                ptr->children[c - 'a'] = new Node();
+            ptr = ptr->children[c - 'a'];
+        }
+        ptr->complete = true;
+    }
+    
+    bool search(string word) {
+        Node* node = getNode_(word);
+        return node != NULL && node->complete;
+    }
+    
+    bool startsWith(string prefix) {
+        Node* node = getNode_(prefix);
+        return node != NULL;
+    }
+};
