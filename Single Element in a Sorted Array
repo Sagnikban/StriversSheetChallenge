@@ -1,8 +1,18 @@
 int singleNonDuplicate(vector<int>& arr)
 {
-   int x=0;	
-   for(int i=0;i<arr.size();i++)
-   x=x^arr[i];
+    int start =0;
+    int  end = arr.size()-1;
+    while(start< end)
+    {
+         int mid = (start+ end)/2;
+         if((mid%2==0 && arr[mid]==arr[mid+1])|| (mid%2==1 && arr[mid]==arr[mid-1]))
+         {
+              start = mid+1;
+         }
+         else
+          end = mid;
 
-   return x;
+    }
+
+    return arr[start];
 }
